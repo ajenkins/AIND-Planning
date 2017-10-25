@@ -130,6 +130,7 @@ class AirCargoProblem(Problem):
         :return: list of Action objects
         """
         # Copied from example_have_cake.py
+        # TODO: Re-implement using check_precond()
         possible_actions = []
         kb = PropKB()
         kb.tell(decode_state(state, self.state_map).pos_sentence())
@@ -155,6 +156,7 @@ class AirCargoProblem(Problem):
         :return: resulting state after action
         """
         # Copied from example_have_cake.py
+        # TODO: Re-implement using act()
         new_state = FluentState([], [])
         old_state = decode_state(state, self.state_map)
         for fluent in old_state.pos:
