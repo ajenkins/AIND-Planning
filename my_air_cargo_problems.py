@@ -276,7 +276,7 @@ def air_cargo_p3() -> AirCargoProblem:
            expr('In(C4, P1)'),
            expr('In(C4, P2)'),
            expr('At(C3, SFO)'),
-           expr('At(C3, ATL)'),
+           expr('At(C3, JFK)'),
            expr('At(C3, ORD)'),
            expr('In(C3, P1)'),
            expr('In(C3, P2)'),
