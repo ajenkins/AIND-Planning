@@ -496,7 +496,18 @@ class PlanningGraph():
 
         :return: int
         """
+        goals = self.problem.goal
+        if not isinstance(goals, list):
+            goals = [goals]
         level_sum = 0
-        # TODO implement
-        # for each goal in the problem, determine the level cost, then add them together
+        for goal in goals:
+            for level_cost, s_level in enumerate(self.s_levels):
+                for node_s in s_level:
+                    if node_s.is_pos:
+                        fs = FluentState([node_s], [])
+                    else:
+                        fs = FluentState([], [node_s])
+                    if encode_state(fs, self.problem.state_map) == goal:
+                        level_sum += level_cost
+                        break
         return level_sum
