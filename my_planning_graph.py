@@ -508,13 +508,7 @@ class PlanningGraph():
         :param node_s2: PgNode_s
         :return: bool
         """
-        parent_actions_s1 = node_s1.parents
-        parent_actions_s2 = node_s1.parents
-        for s1_action in parent_actions_s1:
-            for s2_action in parent_actions_s2:
-                if s1_action.is_mutex(s2_action):
-                    return True
-        return False
+        return all(pre1.is_mutex(pre2) for pre1 in node_s1.parents for pre2 in node_s2.parents)
 
     def h_levelsum(self) -> int:
         """The sum of the level costs of the individual goals (admissible if goals independent)
