@@ -455,11 +455,7 @@ class PlanningGraph():
         :param node_a2: PgNode_a
         :return: bool
         """
-        pos_precond_a1 = set(node_a1.action.precond_pos)
-        pos_precond_a2 = set(node_a2.action.precond_pos)
-        neg_precond_a1 = set(node_a1.action.precond_neg)
-        neg_precond_a2 = set(node_a2.action.precond_neg)
-        return (pos_precond_a1 & neg_precond_a2) or (pos_precond_a2 & neg_precond_a1)
+        return any(pre1.is_mutex(pre2) for pre1 in node_a1.parents for pre2 in node_a2.parents)
 
     def update_s_mutex(self, nodeset: set):
         """ Determine and update sibling mutual exclusion for S-level nodes
