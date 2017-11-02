@@ -515,18 +515,18 @@ class PlanningGraph():
 
         :return: int
         """
+        def minimum_level_cost(goal, s_levels):
+            for level_cost, s_level in enumerate(s_levels):
+                for node_s in s_level:
+                    literal = node_s.symbol if node_s.is_pos else ~node_s.symbol
+                    if literal == goal:
+                        return level_cost
+            raise IndexError('Goal could not be satisfied')
+
         goals = self.problem.goal
         if not isinstance(goals, list):
             goals = [goals]
         level_sum = 0
         for goal in goals:
-            for level_cost, s_level in enumerate(self.s_levels):
-                for node_s in s_level:
-                    if node_s.is_pos:
-                        fs = FluentState([node_s], [])
-                    else:
-                        fs = FluentState([], [node_s])
-                    if encode_state(fs, self.problem.state_map) == goal:
-                        level_sum += level_cost
-                        break
+            level_sum += minimum_level_cost(goal, self.s_levels)
         return level_sum
